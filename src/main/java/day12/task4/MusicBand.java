@@ -1,103 +1,53 @@
 package day12.task4;
 
-import org.jetbrains.annotations.NotNull;
-
-import java.util.ArrayList;
 import java.util.List;
 
 public class MusicBand {
     private String name;
     private int year;
-    private List<String> groupMembers = new ArrayList<>();
+    private List<String> members;
 
-    public MusicBand(String name, int year) {
+    public MusicBand(String name, int year, List<String> members) {
         this.name = name;
         this.year = year;
+        this.members = members;
     }
 
-    public static void addGroupMembers(@NotNull List<MusicBand> musicBandList, String bandName, String member) {
-        for (MusicBand band : musicBandList) {
-            if (band.name.equalsIgnoreCase(bandName)) {
-                band.groupMembers.add(member);
-                return;
-            }
-        }
-        System.out.println("There is no that music band in this list");
+    public String getName() {
+        return name;
     }
 
-    public static void removeThisGroupMember(@NotNull List<MusicBand> musicBandList, String bandName, String member) {
-        for (MusicBand band : musicBandList) {
-            if (band.name.equalsIgnoreCase(bandName)) {
-                if (band.groupMembers.contains(member)) {
-                    band.groupMembers.remove(member);
-                    return;
-                } else {
-                    System.out.println("There is no this member in music band");
-                    return;
-                }
-            }
-        }
-        System.out.println("There is no this music band in this list");
+    public void setName(String name) {
+        this.name = name;
     }
-
-    public static void removeAllGroupMembers(@NotNull List<MusicBand> musicBandList, String bandName) {
-        for (MusicBand band : musicBandList) {
-            if (band.name.equalsIgnoreCase(bandName)) {
-                band.groupMembers.removeAll(band.groupMembers);
-                return;
-            }
-        }
-        System.out.println("There is no this music band in this list");
-    }
-
-    public static void printMembers(@NotNull List<MusicBand> musicBandList, String bandName) {
-        for (MusicBand band : musicBandList) {
-            if (band.name.equalsIgnoreCase(bandName)) {
-                System.out.println(band + band.groupMembers.toString());
-                return;
-            }
-        }
-        System.out.println("There is no this music band in this list");
-    }
-
 
     public int getYear() {
         return year;
     }
 
-
-    public static List<String> getGroupMembers(@NotNull List<MusicBand> musicBandList, String bandName) {
-        List<String> getGroup = new ArrayList<>();
-        for (MusicBand band : musicBandList) {
-            if (band.name.equalsIgnoreCase(bandName)) {
-                getGroup.addAll(band.groupMembers);
-                break;
-            }
-        }
-        return getGroup;
+    public void setYear(int year) {
+        this.year = year;
     }
 
-    public static void transferMembers(@NotNull List<MusicBand> musicBandList, String bandNameA, String bandNameB) {
-        List<String> transfer = new ArrayList<>();
-        int check = 0;
-        for (MusicBand band : musicBandList) {
-            if (band.name.equalsIgnoreCase(bandNameA)) {
-                transfer.addAll(band.groupMembers);
-                removeAllGroupMembers(musicBandList, bandNameA);
-                check += 1;
-            }
-            if (band.name.equalsIgnoreCase(bandNameB)) {
-                band.groupMembers.addAll(transfer);
-                check += 1;
-            }
-            if (check == 2) return;
-        }
-        System.out.println("There are no band A or band B in this list");
+    public List<String> getMembers() {
+        return members;
     }
 
+    public void setBandMemberList(List<String> members) {
+        this.members = members;
+    }
 
     @Override
     public String toString() {
-        return "{" + name + ", " + year + "}";
+        return name + ", " + year + " " + members;
+    }
+
+    public static void transferMembers(MusicBand a, MusicBand b) {
+        for (String member : a.getMembers())
+            b.getMembers().add(member);
+        a.getMembers().clear();
+    }
+    public void printMembers(){
+        System.out.println(this.members);
     }
 }
